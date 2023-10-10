@@ -1,0 +1,21 @@
+<div class="mycomponent__container">
+    <h2 class="mycomponent__title">My Component</h2>
+    <div class="mycomponent__item" data-sly-test="${properties.text}">
+        <p class="mycomponent__item-label">Text property:</p>
+        <pre class="mycomponent__item-output">${properties.text}</pre>
+    </div>
+
+    <div class="mycomponent__item" data-sly-test="${properties.description}">
+        <p class="mycomponent__item-label">Description property:</p>
+        <pre class="mycomponent__item-output">${properties.description}</pre>
+    </div>
+
+    <div class="mycomponent__item" data-sly-use.model="com.learningsite.core.models.HelloWorldModel" data-sly-test="${model.message}">
+        <p class="mycomponent__item-label">Model message:</p>
+        <pre class="mycomponent__item-output">${model.message}</pre>
+    </div>
+    
+    <sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html">
+        <sly data-sly-call="${clientlib.all @ categories='learning-site.mycomponent', async=true}"/>
+    </sly>
+</div>
