@@ -1,4 +1,10 @@
 <div class="mycomponent__container">
+
+    <!-- Import clientlibs -->
+    <sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html">
+        <sly data-sly-call="${clientlib.all @ categories='learning-site.mycomponent', async=true}" />
+    </sly>
+
     <h2 class="mycomponent__title">My Component</h2>
     <div class="mycomponent__item" data-sly-test="${properties.text}">
         <p class="mycomponent__item-label">Text property:</p>
@@ -10,12 +16,64 @@
         <pre class="mycomponent__item-output">${properties.description}</pre>
     </div>
 
-    <div class="mycomponent__item" data-sly-use.model="com.learningsite.core.models.HelloWorldModel" data-sly-test="${model.message}">
+    <div class="mycomponent__item" data-sly-use.model="com.learningsite.core.models.HelloWorldModel"
+        data-sly-test="${model.message}">
         <p class="mycomponent__item-label">Model message:</p>
         <pre class="mycomponent__item-output">${model.message}</pre>
     </div>
-    
-    <sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html">
-        <sly data-sly-call="${clientlib.all @ categories='learning-site.mycomponent', async=true}"/>
+
+    <!-- The sly element -->
+    <sly data-sly-test="${properties.text && properties.description}">
+        <p class="mycomponent__item-label">Text & Description:</p>
+        <p class="mycomponent__item-output">${properties.text} <span>&#8594;</span> ${properties.description}</p>
     </sly>
+
+    <!-- HTL Comments -->
+    <!--/* An HTL Comment */-->
+    <!-- An HTML Comment -->
+
+    <!-- List -->
+    <div class="mycomponent__item">
+        <p class="mycomponent__item-label">Component Properties:</p>
+        <ul data-sly-list="${properties}">
+            <li>
+                <p class="mycomponent__item-listitem">
+                    <span class="mycomponent__item-listitem-key">${item}</span>
+                    <span>&#8594;</span>
+                    ${properties[item]}
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Call and Template -->
+    <template class="mycomponent__item" data-sly-template.args="${@ text, resource='The resource of the parent node'}">
+        <p class="mycomponent__item-label">Call and Template:</p>
+        <div>
+            <p>${text}</p>
+            <p>Parent: ${resource.name}</p>
+        </div>
+    </template>
+
+    <div data-sly-call="${args @ text=properties.text, resource=resource.parent}"></div>
+
+    <!-- Resource -->
+    <!-- Includes a rendered resource. -->
+    <div data-sly-resource="${'./helloworld' @ resourceType = '/apps/learning-site/components/helloworld'}"></div>
+
+    <!-- Include -->
+    <!-- Includes the output of a rendering script run with the current context. -->
+    <div data-sly-include="./mysection.html"></div>
+
+
+    <!-- Java Use API -->
+    <div class="mycomponent__item" data-sly-use.myModel="com.learningsite.core.models.MyModel"
+        data-sly-test="${myModel.title && myModel.description}">
+        <p class="mycomponent__item-label">My model title:</p>
+        <pre class="mycomponent__item-output">${myModel.title}</pre>
+
+        <p class="mycomponent__item-label">My model description:</p>
+        <pre class="mycomponent__item-output">${myModel.description}</pre>
+    </div>
+
 </div>
