@@ -51,7 +51,7 @@ public class MyModel {
     }
 
     public String getDescription() {
-        return title;
+        return description;
     }
 
 }
